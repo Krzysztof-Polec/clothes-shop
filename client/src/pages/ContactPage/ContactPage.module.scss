@@ -1,0 +1,67 @@
+.contactPage{
+  background-image: url("../../images/contact.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 80vh;
+  color: #23232c;
+  font-family: "Rubik", sans-serif;
+  padding: 25px 25px 100px;
+
+  .contactPageContent{
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    .contactPageContentTop{
+      display: flex;
+      flex-direction: column;
+      gap: 35px;
+      padding-bottom: 65px;
+      border-bottom: 1px solid #d8dade;
+
+      &>div{
+        p:first-of-type{
+          text-transform: uppercase;
+          color: #7c7c80;
+          margin-bottom: 10px;
+        }
+
+        p:last-of-type{
+          font-weight: 600;
+        }
+      }
+    }
+
+    .contactPageContentBottom{
+      display: flex;
+      flex-direction: column;
+      gap: 35px;
+      padding-top: 50px;
+
+      &>div{
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+
+        p:nth-child(2){
+          color: #7c7c80;
+        }
+      }
+    }
+  }
+}
+
+@media(min-width: 900px){
+  .contactPage .contactPageContent{
+    .contactPageContentTop{
+      flex-direction: row;
+      width: 50%;
+    }
+    
+    .contactPageContentBottom{
+      flex-direction: row;
+      width: 50%;
+    }
+  }
+}
