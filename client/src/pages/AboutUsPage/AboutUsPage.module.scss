@@ -1,0 +1,36 @@
+.aboutUsPage{
+  background-image: url("../../images/about-us.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 80vh;
+  color: #23232c;
+  font-family: "Rubik", sans-serif;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  line-height: 2;
+
+  .aboutUsPageContent{
+    p:first-of-type{
+      color: #23232c;
+      font-weight: 600;
+    }
+  
+    p{
+      color: #7c7c80;
+  
+      span{
+        text-decoration: underline;
+        color: #23232c;
+        padding-right: 5px;
+      }
+    }
+  }  
+}
+
+@media(min-width: 900px){
+  .aboutUsPageContent{
+    width: 50%;
+  }
+}
