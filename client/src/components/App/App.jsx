@@ -10,7 +10,6 @@ import SearchPage from "../../pages/SearchPage/SearchPage"
 import AccountPage from "../../pages/AccountPage/AccountPage"
 import CartPage from "../../pages/CartPage/CartPage"
 import Page404 from "../../pages/Page404/Page404"
-import Loading from "../Loading/Loading"
 
 const Layout = () => {
   return(
@@ -62,10 +61,6 @@ const router = createBrowserRouter([
       {
         path: "*",
         element: <Page404></Page404>
-      },
-      {
-        path: "ladowanie",
-        element: <Loading></Loading>
       }
     ]
   }
