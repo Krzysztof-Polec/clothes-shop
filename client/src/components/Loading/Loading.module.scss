@@ -1,0 +1,15 @@
+.loading{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  color: #23232c;
+  font-family: "Rubik", sans-serif;
+  padding: 25px;
+  border-top: 1px solid #38383b30;
+  text-align: center;
+
+  h1{
+    font-size: 62px;
+  }
+}
