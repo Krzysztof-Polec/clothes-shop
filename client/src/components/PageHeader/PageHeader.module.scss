@@ -6,4 +6,13 @@
     background-image: url(../../images/header-banner.jpg);
     min-height: 85vh;
   }
+
+  &.productsHeader{
+    background-image: url(../../images/header-banner.jpg);
+    min-height: 50vh;
+  }
+
+  &.basicHeader{
+    padding-bottom: 100px;
+  }
 }
