@@ -1,0 +1,43 @@
+.pageHeaderSlider{
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  min-height: 85vh;
+  width: 100vw;
+
+  .pageHeaderSliderContainer{
+    width: 300vw;
+    height: 100%;
+    display: flex;
+    transition: all 1s ease;
+
+    img{
+      width: 100vw;
+      height: 85vh;
+      object-fit: cover;
+    }
+  }
+
+  .pageHeaderSliderSelectImage{
+    width: 100%;
+    position: absolute;
+    bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+    &>div{
+      width: 30px;
+      height: 3px;
+      background-color: #121212;
+      opacity: 0.3;
+      transition: all .5s;
+      cursor: pointer;
+
+      &.active{
+        opacity: 1;
+      }
+    }
+  }
+}
