@@ -3,6 +3,7 @@ import { motion } from "framer-motion"
 import styles from "./NavSidePanel.module.scss"
 import darkShoppingCartImage from "../../icons/dark-shopping-cart.svg"
 import accountImage from "../../icons/account.svg"
+import searchIcon from "../../icons/search.svg"
 
 const variants = {
   open: {x: 0 },
@@ -26,6 +27,10 @@ const NavSidePanel = ({open}) => {
           <Link to="/o-nas">O nas</Link>
         </div>
         <div>
+          <Link to="/szukaj">
+            <img src={searchIcon} alt="search"></img>
+            <p>Szukaj</p>
+          </Link>
           <Link to="/koszyk">
             <img src={darkShoppingCartImage} alt="shopping-cart"></img>
             <p>Koszyk</p>

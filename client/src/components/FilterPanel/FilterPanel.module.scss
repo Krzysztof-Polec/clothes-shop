@@ -1,0 +1,136 @@
+.filterPanel{
+  font-family: "Rubik", sans-serif;
+  padding: 25px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: white;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+
+  &.hidden{
+    display: none;
+  }
+
+  .filterPanelHeader{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 55px;
+
+    p{
+      font-size: 28px;
+    }
+
+    svg{
+      width: 25px;
+      height: 25px;
+      fill: #909097;
+      transition: 0.3s;
+      cursor: pointer;
+
+      &:hover{
+        fill: #121212;
+      }
+    }
+  }
+
+  .filterPanelMainContent{
+    &>div{
+      margin-bottom: 40px;
+    }
+
+    div:nth-child(1),div:nth-child(2){
+      p:first-of-type{
+        font-size: 22px;
+        margin-bottom: 20px;
+      }
+    }
+
+    .filterPanelMainContentCategories,
+    .filterPanelMainContentSubCategories,
+    .filterPanelMainContentSpecialProducts{
+      div{
+        padding: 10px 0;
+        display: flex;
+        align-items: center;
+
+        input[type=checkbox]{
+          width: 16px;
+          height: 16px;
+          cursor: pointer;
+        }
+
+        label{
+          margin-left: 10px;
+          font-size: 16px;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .filterPanelMainContentMinMaxProductPrice{
+      div{
+        margin-bottom: 10px;
+
+        input[type=number]{
+          border: none;
+          border-bottom: 2px solid #7c7c80;
+          color: #7c7c80;
+          font-size: 14px;
+          transition: 0.3s ease-in-out;
+          margin-left: 10px;
+  
+          &:focus{
+            outline: none;
+          }
+  
+          &:hover{
+            border-bottom: 2px solid #121212;
+          }
+
+          &::-webkit-inner-spin-button,
+          &::-webkit-outer-spin-button {
+              -webkit-appearance: none;
+              margin: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media(min-width: 770px){
+  .filterPanel{
+    width: 390px;
+    height: auto;
+    position: absolute;
+    right: 0;
+    left: auto;
+    top: 480px;
+    box-shadow: 0 4px 10px 0 rgba(3,3,3,.1);
+    z-index: 1;
+
+    .filterPanelHeader p{
+      font-size: 20px;
+    }
+
+    .filterPanelMainContent{
+      div:nth-child(1),div:nth-child(2){
+        p:first-of-type{
+          font-size: 16px;
+        }
+      }
+
+      .filterPanelMainContentCategories,
+      .filterPanelMainContentSubCategories,
+      .filterPanelMainContentSpecialProducts{
+        div{
+          label{
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,11 +1,11 @@
-.shopPageProduct{
+.product{
   display: flex;
   flex-direction: column;
   gap: 15px;
   text-decoration: none;
   cursor: pointer;
 
-  .shopPageProductHeader{
+  .productHeader{
     position: relative;
 
     img{
@@ -14,7 +14,7 @@
     }
   }
 
-  .shopPageProductInfo{
+  .productInfo{
     color: #23232c;
     display: flex;
     flex-direction: column;

@@ -11,7 +11,7 @@ const Product = ({product}) => {
 
   return(
     <motion.a
-      className={styles.shopPageProduct}
+      className={styles.product}
       href={`produkty/${productCategory.toLowerCase()}/${productName.replace(/\s+/g, "-").toLowerCase()}`}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
@@ -20,14 +20,14 @@ const Product = ({product}) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className={styles.shopPageProductHeader}>
+      <div className={styles.productHeader}>
         <img 
           src={isHovered ? import.meta.env.VITE_APP_UPLOAD_URL + product?.attributes.product_img2.data.attributes.url : import.meta.env.VITE_APP_UPLOAD_URL + product?.attributes.product_img1.data.attributes.url}
           alt={isHovered ? product?.attributes.product_img2.data.attributes.alternativeText : product?.attributes.product_img1.data.attributes.alternativeText}
         ></img>
         {isHovered  && <ProductShortcut product={product}></ProductShortcut>}
       </div>
-      <div className={styles.shopPageProductInfo}>
+      <div className={styles.productInfo}>
         <p>{product?.attributes.product_name}</p>
         <p>{product?.attributes.product_price} zł</p>
       </div>

@@ -2,9 +2,11 @@ import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import axios from "axios"
 import SingleProduct from "../../components/SingleProduct/SingleProduct"
+import Loading from "../../components/Loading/Loading"
 
 const ProductPage = () => {
   const [singleProduct, setSingleProduct] = useState([])
+  const [loading, setLoading] = useState(true)
   const { product } = useParams()
   const productName = product.replace(/-/g, " ")
 
@@ -15,14 +17,16 @@ const ProductPage = () => {
           headers: {Authorization: "bearer " + import.meta.env.VITE_APP_API_TOKEN}
         })
         setSingleProduct(response.data.data)
+        setLoading(false)
       }catch(err){
         console.log(err)
+        setLoading(false)
       }
     }
     fetchData()
   }, [productName])
 
-  return <SingleProduct data={singleProduct}></SingleProduct>
+  return loading ? <Loading></Loading> : <SingleProduct data={singleProduct}></SingleProduct>
 }
 
 export default ProductPage
