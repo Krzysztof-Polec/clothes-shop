@@ -846,9 +846,9 @@ export interface ApiProductProduct extends Schema.CollectionType {
     product_img2: Attribute.Media & Attribute.Required;
     product_img3: Attribute.Media & Attribute.Required;
     product_price: Attribute.Decimal & Attribute.Required;
-    product_isNew: Attribute.Boolean;
-    product_isBestseller: Attribute.Boolean;
-    product_isOnSale: Attribute.Boolean;
+    product_isNew: Attribute.Boolean & Attribute.DefaultTo<false>;
+    product_isBestseller: Attribute.Boolean & Attribute.DefaultTo<false>;
+    product_isOnSale: Attribute.Boolean & Attribute.DefaultTo<false>;
     categories: Attribute.Relation<
       'api::product.product',
       'manyToMany',

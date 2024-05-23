@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { createBrowserRouter, RouterProvider, Outlet, useLocation } from "react-router-dom"
 import Footer from "../Footer/Footer"
 import PageHeader from "../PageHeader/PageHeader"
@@ -10,8 +11,20 @@ import SearchPage from "../../pages/SearchPage/SearchPage"
 import AccountPage from "../../pages/AccountPage/AccountPage"
 import CartPage from "../../pages/CartPage/CartPage"
 import Page404 from "../../pages/Page404/Page404"
+import RegisterPage from "../../pages/RegisterPage/RegisterPage"
+import LoginPage from "../../pages/LoginPage/LoginPage"
+
+const useScrollToTop = () => {
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
+}
 
 const Layout = () => {
+  useScrollToTop()
+
   return(
     <div>
       <PageHeader></PageHeader>
@@ -49,6 +62,14 @@ const router = createBrowserRouter([
       {
         path: "/szukaj",
         element: <SearchPage></SearchPage>
+      },
+      {
+        path: "/rejestracja",
+        element: <RegisterPage></RegisterPage>
+      },
+      {
+        path: "/logowanie",
+        element: <LoginPage></LoginPage>
       },
       {
         path: "/konto",

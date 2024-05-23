@@ -49,13 +49,16 @@
       "required": true
     },
     "product_isNew": {
-      "type": "boolean"
+      "type": "boolean",
+      "default": false
     },
     "product_isBestseller": {
-      "type": "boolean"
+      "type": "boolean",
+      "default": false
     },
     "product_isOnSale": {
-      "type": "boolean"
+      "type": "boolean",
+      "default": false
     },
     "categories": {
       "type": "relation",

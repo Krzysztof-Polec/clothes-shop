@@ -6,6 +6,8 @@ import searchImage from "../../icons/search.svg"
 import accountImage from "../../icons/account.svg"
 
 const Nav = () => {
+  const isLogin = sessionStorage.getItem("jwt") ? true : false
+
   return(
     <nav className={styles.navContent}>
       <div className={styles.navLeftPanel}>
@@ -23,7 +25,7 @@ const Nav = () => {
         <Link to="/szukaj">
           <img src={searchImage} alt="search"></img>
         </Link>
-        <Link to="/konto">
+        <Link to={isLogin ? "/konto" : "/logowanie"}>
           <img src={accountImage} alt="account"></img>
         </Link>
         <Link to="/koszyk">

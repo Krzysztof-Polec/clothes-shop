@@ -11,6 +11,8 @@ const variants = {
 }
 
 const NavSidePanel = ({open}) => {
+  const isLogin = sessionStorage.getItem("jwt") ? true : false
+
   return(
     <motion.div 
       className={styles.navSidePanel}
@@ -36,7 +38,7 @@ const NavSidePanel = ({open}) => {
             <p>Koszyk</p>
             <p>0</p>
           </Link>
-          <Link to="/konto">
+          <Link to={isLogin ? "/konto" : "/logowanie"}>
             <img src={accountImage} alt="account"></img>
             <p>Konto</p>
           </Link>
