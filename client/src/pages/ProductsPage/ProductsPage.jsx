@@ -44,8 +44,8 @@ const ProductsPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try{
-        const filteredProductsResponse = await axios.get(import.meta.env.VITE_APP_API_URL+`/products?${query()}`, {
-          headers: {Authorization: "bearer " + import.meta.env.VITE_APP_API_TOKEN},
+        const filteredProductsResponse = await axios.get(`${import.meta.env.VITE_APP_API_URL}/products?${query()}`, {
+          headers: {Authorization: `bearer ${import.meta.env.VITE_APP_API_TOKEN}`},
           params: {
             populate: ["categories", "sub_categories", "product_img1", "product_img2", "product_img3"]
           }

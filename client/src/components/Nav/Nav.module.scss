@@ -73,6 +73,15 @@
 
       &:last-of-type{
         display: block;
+        position: relative;
+
+        span{
+          position: absolute;
+          padding: 5px;
+          top: -18px;
+          left: 20px;
+          font-size: 16px;
+        }
       }
 
       img{

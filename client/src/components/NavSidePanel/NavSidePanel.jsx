@@ -1,5 +1,8 @@
+import { useState, useEffect, useContext } from "react"
 import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
+import getCartItemsAmount from "../../utils/getCartItemsAmount"
+import { UpdateCartContext } from "../../context/UpdateCartContext"
 import styles from "./NavSidePanel.module.scss"
 import darkShoppingCartImage from "../../icons/dark-shopping-cart.svg"
 import accountImage from "../../icons/account.svg"
@@ -11,7 +14,13 @@ const variants = {
 }
 
 const NavSidePanel = ({open}) => {
+  const [totalCartItem, setTotalCartItem] = useState(0)
   const isLogin = sessionStorage.getItem("jwt") ? true : false
+  const { updateCart, setUpdateCart } = useContext(UpdateCartContext)
+
+  useEffect(() => {
+    getCartItemsAmount({setTotalCartItem})
+  }, [updateCart])
 
   return(
     <motion.div 
@@ -36,7 +45,7 @@ const NavSidePanel = ({open}) => {
           <Link to="/koszyk">
             <img src={darkShoppingCartImage} alt="shopping-cart"></img>
             <p>Koszyk</p>
-            <p>0</p>
+            <span>{totalCartItem}</span>
           </Link>
           <Link to={isLogin ? "/konto" : "/logowanie"}>
             <img src={accountImage} alt="account"></img>

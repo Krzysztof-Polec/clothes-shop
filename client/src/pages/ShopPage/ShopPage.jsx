@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
-import styles from "./ShopPage.module.scss"
 import Product from "../../components/Product/Product"
 import Loading from "../../components/Loading/Loading"
+import styles from "./ShopPage.module.scss"
 
 const ShopPage = () => {
   const [products, setProducts] = useState([])
@@ -21,10 +21,10 @@ const ShopPage = () => {
         }else if(productType === "salesProducts"){
           filter = "&filters[product_isOnSale][$eq]=true"
         }
-        const response = await axios.get(import.meta.env.VITE_APP_API_URL+"/products?populate=*" + filter, {
-          headers: {Authorization: "bearer " + import.meta.env.VITE_APP_API_TOKEN}
+        const productByTypeResponse = await axios.get(`${import.meta.env.VITE_APP_API_URL}/products?populate=*${filter}`, {
+          headers: {Authorization: `bearer ${import.meta.env.VITE_APP_API_TOKEN}`}
         })
-        setProducts(response?.data.data)
+        setProducts(productByTypeResponse?.data.data)
         setLoading(false)
       }catch(err){
         console.error(err)

@@ -13,10 +13,10 @@ const ProductPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try{
-        const response = await axios.get(import.meta.env.VITE_APP_API_URL+`/products?populate=*&filters[product_name][$eqi]=${productName}`, {
-          headers: {Authorization: "bearer " + import.meta.env.VITE_APP_API_TOKEN}
+        const productResponse = await axios.get(`${import.meta.env.VITE_APP_API_URL}/products?populate=*&filters[product_name][$eqi]=${productName}`, {
+          headers: {Authorization: `bearer ${import.meta.env.VITE_APP_API_TOKEN}`}
         })
-        setSingleProduct(response.data.data)
+        setSingleProduct(productResponse.data.data)
         setLoading(false)
       }catch(err){
         console.log(err)

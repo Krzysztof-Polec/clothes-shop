@@ -153,14 +153,36 @@
         border: 1px solid #38383b30;
         transition: .3s ease-in-out;
         cursor: pointer;
+
+        &.inWishlist{
+          svg{
+            fill: #121212;
+          }
+
+          &:hover{
+            border: 1px solid red;
+            svg{
+              stroke: red;
+              fill: transparent;
+            }
+          }
+        }
         
         &:hover{
           border: 1px solid #23232c;
+
+          svg{
+            fill: #121212;
+          }
         }
 
-        img{
-          width: 20px;
+        svg{
+          width: 24px;
           height: 20px;
+          fill: transparent;
+          stroke: #121212;
+          stroke-width: 20;
+          transition: .3s ease-in-out;
         }
       }
     } 

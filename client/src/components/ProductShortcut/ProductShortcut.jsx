@@ -1,23 +1,56 @@
+import { useEffect, useState, useContext} from "react"
+import { useNavigate } from "react-router-dom"
+import axios from "axios"
+import { UpdateCartContext } from "../../context/UpdateCartContext"
+import { useToast } from "../Toast/Toast"
+import { UpdateWishlistIconContext } from "../../context/UpdateWishlistIconContext"
 import { motion } from "framer-motion"
-
 import styles from "./ProductShortcut.module.scss"
+import handleAddToCart from "../../utils/handleAddToCart"
+import handleAddToWishlist from "../../utils/handleAddToWishlist"
 
-const ProductShortcut = ({product}) => {
-  const productName = product?.attributes.product_name
+const ProductShortcut = ({ product }) => {
+  const [isInWishlist, setIsInWishlist] = useState(false)
+  const navigate = useNavigate()
+  const { showToast } = useToast()
+  const { updateCart, setUpdateCart } = useContext(UpdateCartContext)
+  const { updateWishlistIcon, setUpdateWishlistIcon } = useContext(UpdateWishlistIconContext)
+  const productId = product?.id
+  const productPrice = product?.attributes.product_price
+  const jwt = sessionStorage.getItem("jwt")
+  const user = JSON.parse(sessionStorage.getItem("user"))
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try{
+        const wishlistResponse = await axios.get(`${import.meta.env.VITE_APP_API_URL}/user-wishlists?filters[userId][$eq]=${user.id}&populate=products`, {
+          headers: {Authorization: `Bearer ${jwt}`}
+        })
+  
+        const wishlist = wishlistResponse.data.data
+  
+        const existingWishlistItem = wishlist.find(userWishlist => userWishlist.attributes.products.data.some(product => product.id === productId))
+  
+        setIsInWishlist(existingWishlistItem !== undefined)
+      }catch(error){
+        console.log(error)
+      }
+    }
+  
+    fetchData()
+  }, [productId, user.id, jwt, updateWishlistIcon])
 
   return(
     <motion.div className={styles.shopPageProductShortcut}
       animate={{ bottom: 0 }}
-      transition={{ duration: 0.1}}
+      transition={{ duration: 0.1 }}
     >
-      <div
-        onClick={(e) => {
+      <div onClick={(e) => {
         e.preventDefault()
-        console.log(`dodano do koszyka produkt: ${productName}` )
-        }}
-      >
+        handleAddToCart({productId, productAmount: 1, productPrice, updateCart, setUpdateCart, navigate, showToast})
+      }}>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-          <path 
+          <path
             d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 
             50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 
             19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 
@@ -25,11 +58,11 @@ const ProductShortcut = ({product}) => {
             1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
         </svg>
       </div>
-      <div
-        onClick={(e) => {
+      <div onClick={(e) => {
         e.preventDefault()
-        console.log(`dodano do ulubionych produkt: ${productName}` )
-        }}
+        handleAddToWishlist({productId, navigate, showToast, updateWishlistIcon, setUpdateWishlistIcon})
+      }}
+      className={isInWishlist ? styles.inWishlist : ""}
       >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
           <path opacity="1" d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
 import Product from "../../components/Product/Product"
-import styles from "./SearchPage.module.scss"
 import Loading from "../../components/Loading/Loading"
+import styles from "./SearchPage.module.scss"
 
 const SearchPage = () => {
   const [searchTerm, setSearchTerm] = useState("")
@@ -12,10 +12,10 @@ const SearchPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try{
-        const response = await axios.get(import.meta.env.VITE_APP_API_URL+`/products?populate=*&filters[product_name][$contains]=${searchTerm}`, {
-          headers: {Authorization: "bearer " + import.meta.env.VITE_APP_API_TOKEN}
+        const productContainsSearchTermResponse = await axios.get(`${import.meta.env.VITE_APP_API_URL}/products?populate=*&filters[product_name][$contains]=${searchTerm}`, {
+          headers: {Authorization: `bearer ${import.meta.env.VITE_APP_API_TOKEN}`}
         })
-        setProducts(response?.data.data)
+        setProducts(productContainsSearchTermResponse?.data.data)
         setLoading(false)
       }catch(err){
         console.error(err)

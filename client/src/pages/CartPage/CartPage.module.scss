@@ -1,0 +1,43 @@
+.cartPage{
+  min-height: 80vh;
+  font-family: 'Rubik', sans-serif;
+
+  .cartPageHeader{
+    background-color: #f1f2f4;
+    padding: 25px;
+  }
+
+  .cartPageContent{
+    padding: 25px;
+
+    .cartPageContentInfo{
+      font-weight: 600;
+    }
+
+    .cartPageCheckout{
+      border-top: 1px solid rgba(56, 56, 59, 0.1882352941);
+      padding-top: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .cartPageCheckoutLeftPanel{
+        p{
+          font-weight: 500;
+        }
+      }
+
+      .cartPageCheckoutRightPanel{
+        background-color: #23232c;
+        color: #FFFFFF;
+        padding: 10px 30px;
+        transition: .3s ease-in-out;
+        cursor: pointer;
+
+        &:hover{
+          background-color: black;
+        }
+      }
+    }
+  }
+}

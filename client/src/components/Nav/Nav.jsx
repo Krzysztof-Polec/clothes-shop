@@ -1,4 +1,7 @@
+import { useEffect, useState, useContext } from "react"
 import { Link } from "react-router-dom"
+import { UpdateCartContext } from "../../context/UpdateCartContext"
+import getCartItemsAmount from "../../utils/getCartItemsAmount"
 import styles from "./Nav.module.scss"
 import darkShoppingCartImage from "../../icons/dark-shopping-cart.svg"
 import HamburgerMenu from "../HamburgerMenu/HamburgerMenu"
@@ -6,7 +9,13 @@ import searchImage from "../../icons/search.svg"
 import accountImage from "../../icons/account.svg"
 
 const Nav = () => {
+  const [totalCartItem, setTotalCartItem] = useState(0)
   const isLogin = sessionStorage.getItem("jwt") ? true : false
+  const { updateCart, setUpdateCart } = useContext(UpdateCartContext)
+
+  useEffect(() => {
+    getCartItemsAmount({setTotalCartItem})
+  }, [updateCart])  
 
   return(
     <nav className={styles.navContent}>
@@ -30,6 +39,7 @@ const Nav = () => {
         </Link>
         <Link to="/koszyk">
           <img src={darkShoppingCartImage} alt="shopping-cart"></img>
+          <span>{totalCartItem}</span>
         </Link>
       </div>
     </nav>

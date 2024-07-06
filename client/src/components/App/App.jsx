@@ -1,5 +1,8 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { createBrowserRouter, RouterProvider, Outlet, useLocation } from "react-router-dom"
+import { UpdateCartContext } from "../../context/UpdateCartContext"
+import { ToastProvider } from "../Toast/Toast"
+import { UpdateWishlistIconProvider } from "../../context/UpdateWishlistIconContext"
 import Footer from "../Footer/Footer"
 import PageHeader from "../PageHeader/PageHeader"
 import ShopPage from "../../pages/ShopPage/ShopPage"
@@ -23,14 +26,21 @@ const useScrollToTop = () => {
 }
 
 const Layout = () => {
+  const [updateCart, setUpdateCart] = useState(false)
   useScrollToTop()
 
   return(
-    <div>
-      <PageHeader></PageHeader>
-      <Outlet></Outlet>
-      <Footer></Footer>
-    </div>
+    <UpdateCartContext.Provider value={{updateCart, setUpdateCart}}>
+      <ToastProvider>
+        <UpdateWishlistIconProvider>
+          <div>
+            <PageHeader></PageHeader>
+            <Outlet></Outlet>
+            <Footer></Footer>
+          </div>
+        </UpdateWishlistIconProvider>
+      </ToastProvider>
+    </UpdateCartContext.Provider>
   )
 }
 

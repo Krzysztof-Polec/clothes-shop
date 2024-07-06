@@ -8,10 +8,6 @@
   padding: 20px;
   transition: bottom 0.5s ease;
 
-  &.shopPageProductShowShortcut{
-    bottom: 0;
-  }
-
   &>div{
     width: 55px;
     height: 50px;
@@ -29,6 +25,19 @@
       width: 31px;
       height: 30px;
       transition: 0.1s;
+    }
+
+    &.inWishlist{
+      svg{
+        fill: #121212;
+      }
+  
+      &:hover{
+        svg{
+          fill: transparent;
+          stroke: red;
+        }
+      }
     }
 
     &:hover{

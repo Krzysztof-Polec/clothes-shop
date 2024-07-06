@@ -9,13 +9,13 @@ const FilterPanel = ({ selectedFilters, setSelectedFilters, isFilterPanelOpen, t
   useEffect(() => {
     const fetchData = async () => {
       try{
-        const categoryResponse = await axios.get(import.meta.env.VITE_APP_API_URL+`/categories`, {
-          headers: {Authorization: "bearer " + import.meta.env.VITE_APP_API_TOKEN}
+        const categoryResponse = await axios.get(`${import.meta.env.VITE_APP_API_URL}/categories`, {
+          headers: {Authorization: `bearer ${import.meta.env.VITE_APP_API_TOKEN}`}
         })
         setCategories(categoryResponse?.data.data)
 
-        const subCategoryResponse = await axios.get(import.meta.env.VITE_APP_API_URL+`/sub-categories`, {
-          headers: {Authorization: "bearer " + import.meta.env.VITE_APP_API_TOKEN}
+        const subCategoryResponse = await axios.get(`${import.meta.env.VITE_APP_API_URL}/sub-categories`, {
+          headers: {Authorization: `bearer ${import.meta.env.VITE_APP_API_TOKEN}`}
         })
         setSubCategories(subCategoryResponse?.data.data)
       }catch(err){
