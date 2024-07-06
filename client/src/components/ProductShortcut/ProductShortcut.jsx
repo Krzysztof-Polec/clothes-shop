@@ -22,6 +22,8 @@ const ProductShortcut = ({ product }) => {
 
   useEffect(() => {
     const fetchData = async () => {
+      if(!jwt) return 
+      
       try{
         const wishlistResponse = await axios.get(`${import.meta.env.VITE_APP_API_URL}/user-wishlists?filters[userId][$eq]=${user.id}&populate=products`, {
           headers: {Authorization: `Bearer ${jwt}`}
@@ -38,7 +40,7 @@ const ProductShortcut = ({ product }) => {
     }
   
     fetchData()
-  }, [productId, user.id, jwt, updateWishlistIcon])
+  }, [productId, jwt, updateWishlistIcon])
 
   return(
     <motion.div className={styles.shopPageProductShortcut}

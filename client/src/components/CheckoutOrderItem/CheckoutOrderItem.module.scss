@@ -1,0 +1,15 @@
+.checkoutOrderItem{
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+
+  p{
+    font-size: 16px !important;
+  }
+}
+
+@media(min-width: 950px){
+  .checkoutOrderItem{
+    max-width: 50%;
+  }
+}

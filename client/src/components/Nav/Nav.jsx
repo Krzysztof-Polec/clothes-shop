@@ -37,7 +37,7 @@ const Nav = () => {
         <Link to={isLogin ? "/konto" : "/logowanie"}>
           <img src={accountImage} alt="account"></img>
         </Link>
-        <Link to="/koszyk">
+        <Link to={isLogin ? "/koszyk" : "/logowanie"}>
           <img src={darkShoppingCartImage} alt="shopping-cart"></img>
           <span>{totalCartItem}</span>
         </Link>

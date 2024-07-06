@@ -1,0 +1,55 @@
+.checkoutPage{
+  min-height: 80vh;
+  font-family: 'Rubik', sans-serif;
+  
+  .checkoutPageHeader{
+    background-color: #f1f2f4;
+    padding: 25px;
+    font-size: 20px;
+  }
+
+  .checkoutPageContent{
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+
+    .checkoutPageContentYourOrder{
+      padding: 20px 30px;
+      border: 2px solid #f1f2f4;
+
+      p{
+        font-size: 18px;
+        margin-bottom: 50px;
+
+        &:last-of-type{
+          margin-top: 50px;
+          margin-bottom: 0;
+        }
+      }
+
+      .checkoutPageContentYourOrderContent{
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+
+        p{
+          margin: 0;
+        }
+      }
+    }
+
+    .placeOrder{
+      text-align: center;
+      background-color: #23232c;
+      color: #FFFFFF;
+      padding: 30px;
+      transition: .3s ease-in-out;
+      cursor: pointer;
+
+      &:hover{
+        background-color: black;
+      }
+    }
+  }
+}

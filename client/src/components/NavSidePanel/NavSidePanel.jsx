@@ -42,7 +42,7 @@ const NavSidePanel = ({open}) => {
             <img src={searchIcon} alt="search"></img>
             <p>Szukaj</p>
           </Link>
-          <Link to="/koszyk">
+          <Link to={isLogin ? "/koszyk" : "/logowanie"}>
             <img src={darkShoppingCartImage} alt="shopping-cart"></img>
             <p>Koszyk</p>
             <span>{totalCartItem}</span>

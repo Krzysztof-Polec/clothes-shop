@@ -16,6 +16,7 @@ import CartPage from "../../pages/CartPage/CartPage"
 import Page404 from "../../pages/Page404/Page404"
 import RegisterPage from "../../pages/RegisterPage/RegisterPage"
 import LoginPage from "../../pages/LoginPage/LoginPage"
+import CheckoutPage from "../../pages/CheckoutPage/CheckoutPage"
 
 const useScrollToTop = () => {
   const { pathname } = useLocation()
@@ -51,7 +52,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <ShopPage></ShopPage>
+        element: <ShopPage></ShopPage>,
       },
       {
         path: "/produkty",
@@ -88,6 +89,10 @@ const router = createBrowserRouter([
       {
         path: "/koszyk",
         element: <CartPage></CartPage>
+      },
+      {
+        path: "/zamówienie/podsumowanie",
+        element: <CheckoutPage></CheckoutPage>
       },
       {
         path: "*",

@@ -5,6 +5,7 @@
   .cartPageHeader{
     background-color: #f1f2f4;
     padding: 25px;
+    font-size: 20px;
   }
 
   .cartPageContent{
@@ -27,7 +28,8 @@
         }
       }
 
-      .cartPageCheckoutRightPanel{
+      a{
+        text-decoration: none;
         background-color: #23232c;
         color: #FFFFFF;
         padding: 10px 30px;

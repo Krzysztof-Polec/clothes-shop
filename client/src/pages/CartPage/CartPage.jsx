@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from "react"
+import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
 import { UpdateCartContext } from "../../context/UpdateCartContext"
 import CartItem from "../../components/CartItem/CartItem"
@@ -12,10 +13,14 @@ const CartPage = () => {
   const jwt = sessionStorage.getItem("jwt")
   const user = JSON.parse(sessionStorage.getItem("user"))
   const { updateCart, setUpdateCart } = useContext(UpdateCartContext)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const getCartItems = async () => {
-      if(!jwt) return
+      if(!jwt){
+        navigate("/logowanie")
+        return
+      }
 
       await axios.get(`${import.meta.env.VITE_APP_API_URL}/user-carts?[populate][products][populate][product_img1][populate][0]=url&filters[userId][$eq]=${user.id}`, {
         headers: {
@@ -89,9 +94,7 @@ const CartPage = () => {
             <div className={styles.cartPageCheckoutLeftPanel}>
               <p>RAZEM: {totalPrice} zł</p>
             </div>
-            <div className={styles.cartPageCheckoutRightPanel}>
-              <div>Zapłać</div>
-            </div>
+            <Link to={"/zamówienie/podsumowanie"}>Dalej</Link>
           </div>
         )}
       </div>

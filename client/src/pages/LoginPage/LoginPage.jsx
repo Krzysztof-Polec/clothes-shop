@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
 import { useToast } from "../../components/Toast/Toast"
+import { UpdateCartContext } from "../../context/UpdateCartContext"
 import styles from "./LoginPage.module.scss"
 
 const LoginPage = () => {
@@ -9,6 +10,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState("")
   const navigate = useNavigate()
   const { showToast } = useToast()
+  const { updateCart, setUpdateCart } = useContext(UpdateCartContext)
 
   useEffect(()=>{
     const jwt = sessionStorage.getItem("jwt")
@@ -40,6 +42,7 @@ const LoginPage = () => {
       sessionStorage.setItem("user",JSON.stringify(resp.data.user))
       sessionStorage.setItem("jwt",resp.data.jwt)
       navigate("/konto")
+      setUpdateCart(!updateCart)
       setEmail("")
       setPassword("")
     }).catch(error => {
