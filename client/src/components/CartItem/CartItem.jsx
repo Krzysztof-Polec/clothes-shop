@@ -8,16 +8,16 @@ const CartItem = ({ data, updateAmount, removeItem }) => {
         <div className={styels.cartItemProductInfo}>
           <p>{data.product_name}</p>
           <p>{data.price} zł</p>
-          <p onClick={() => removeItem(data.cart_id)}>Usuń</p>
+          <p onClick={() => removeItem(data.cart_id, data.product_id)}>Usuń</p>
         </div>
       </div>
       <div className={styels.cartItemRightPanel}>
         <div className={styels.cartItemAmount}>
-          <p onClick={() => updateAmount(data.cart_id, data.amount - 1, data.actualPrice)}>-</p>
+          <p onClick={() => updateAmount(data.cart_id, data.amount - 1, data.actualPrice, data.product_id)}>-</p>
           <p>{data.amount}</p>
-          <p onClick={() => updateAmount(data.cart_id, data.amount + 1, data.actualPrice)}>+</p>
+          <p onClick={() => updateAmount(data.cart_id, data.amount + 1, data.actualPrice, data.product_id)}>+</p>
         </div>
-        <div className={styels.cartItemDelete} onClick={() => removeItem(data.cart_id)}>
+        <div className={styels.cartItemDelete} onClick={() => removeItem(data.cart_id, data.product_id)}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
             <path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 
             96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 

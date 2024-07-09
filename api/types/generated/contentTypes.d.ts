@@ -864,11 +864,6 @@ export interface ApiProductProduct extends Schema.CollectionType {
       'manyToMany',
       'api::user-wishlist.user-wishlist'
     >;
-    user_carts: Attribute.Relation<
-      'api::product.product',
-      'manyToMany',
-      'api::user-cart.user-cart'
-    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -946,13 +941,7 @@ export interface ApiUserCartUserCart extends Schema.CollectionType {
       'plugin::users-permissions.user'
     >;
     userId: Attribute.Integer;
-    products: Attribute.Relation<
-      'api::user-cart.user-cart',
-      'manyToMany',
-      'api::product.product'
-    >;
-    amount: Attribute.Integer;
-    price: Attribute.Decimal;
+    cartProductList: Attribute.Component<'product-item.product-item', true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

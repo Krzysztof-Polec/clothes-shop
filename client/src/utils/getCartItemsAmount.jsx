@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const getCartItemsAmount = async ({setTotalCartItem}) => {
+const getCartItemsAmount = async ({ setTotalCartItem }) => {
   const jwt = sessionStorage.getItem("jwt")
   const user = JSON.parse(sessionStorage.getItem("user"))
 
@@ -8,16 +8,16 @@ const getCartItemsAmount = async ({setTotalCartItem}) => {
 
   try{
     const userCartResponse = await axios.get(`${import.meta.env.VITE_APP_API_URL}/user-carts?populate=*&filters[userId][$eq]=${user.id}`, {
-      headers: {Authorization: `bearer ${jwt}`}
+      headers: { Authorization: `bearer ${jwt}` }
     })
 
-    const cartItems = userCartResponse.data?.data
+    const cartItems = userCartResponse.data?.data[0]
 
-    if(cartItems && cartItems.length > 0){
+    if(cartItems){
       let totalItems = 0
 
-      cartItems.forEach(cartItem => {
-        totalItems += cartItem.attributes.amount
+      cartItems.attributes.cartProductList.forEach(product => {
+        totalItems += product.amount
       })
 
       setTotalCartItem(totalItems)

@@ -20,17 +20,10 @@
     "userId": {
       "type": "integer"
     },
-    "products": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::product.product",
-      "inversedBy": "user_carts"
-    },
-    "amount": {
-      "type": "integer"
-    },
-    "price": {
-      "type": "decimal"
+    "cartProductList": {
+      "type": "component",
+      "repeatable": true,
+      "component": "product-item.product-item"
     }
   }
 }

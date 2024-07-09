@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_product_item_product_items",
+  "info": {
+    "displayName": "Product-item",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "amount": {
+      "type": "integer"
+    },
+    "price": {
+      "type": "decimal"
+    },
+    "product": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::product.product"
+    }
+  }
+}

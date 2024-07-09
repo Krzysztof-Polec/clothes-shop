@@ -22,21 +22,21 @@ const CartPage = () => {
         return
       }
 
-      await axios.get(`${import.meta.env.VITE_APP_API_URL}/user-carts?[populate][products][populate][product_img1][populate][0]=url&filters[userId][$eq]=${user.id}`, {
+      await axios.get(`${import.meta.env.VITE_APP_API_URL}/user-carts?populate[0]=cartProductList&populate[1]=cartProductList.product&populate[2]=cartProductList.product.product_img1&filters[userId][$eq]=${user.id}`, {
         headers: {
           Authorization: `Bearer ${jwt}`
         }
       }).then(response => {
         const data = response.data?.data
-        const cartItemsList = data.map((item, index) => ({
-          product_name: item.attributes.products?.data[0].attributes.product_name,
-          amount: item.attributes.amount,
-          price: item.attributes.price,
-          actualPrice: item.attributes.products?.data[0].attributes.product_price,
-          image: item.attributes.products?.data[0].attributes.product_img1.data.attributes.url,
-          imageAlt: item.attributes.products?.data[0].attributes.product_img1.data.attributes.alternativeText,
-          product_id: item.attributes.products?.data[0].id,
-          cart_id: item.id
+        const cartItemsList = data[0].attributes.cartProductList.map((item, index) => ({
+          product_name: item.product.data.attributes.product_name,
+          amount: item.amount,
+          price: item.price,
+          actualPrice: item.product.data.attributes.product_price,
+          image: item.product.data.attributes.product_img1.data.attributes.url,
+          imageAlt: item.product.data.attributes.product_img1.data.attributes.alternativeText,
+          product_id: item.product.data.id,
+          cart_id: data[0].id
         }))
         setCart(cartItemsList)
         setLoading(false)
@@ -53,29 +53,62 @@ const CartPage = () => {
     setTotalPrice(newTotalPrice)
   }, [cart])
 
-  const updateAmount = (cartId, amount, actualPrice) => {
-    if(amount < 1) return
+  const updateAmount = (cartId, amount, actualPrice, productId) => {
+    if (amount < 1) return
     const newPrice = amount * actualPrice
-
+  
     axios.put(`${import.meta.env.VITE_APP_API_URL}/user-carts/${cartId}`, {
-      data: { amount: amount, price: newPrice }
+      data: {
+        cartProductList: cart.map(item => item.product_id === productId ? {
+          amount: amount,
+          price: newPrice,
+          product: item.product_id
+        } : {
+          amount: item.amount,
+          price: item.price,
+          product: item.product_id
+        })
+      }
     }, {
       headers: { Authorization: `Bearer ${jwt}` }
     }).then(() => {
-      setCart(cart.map(item => item.cart_id === cartId ? { ...item, amount: amount, price: newPrice } : item))
+      setCart(cart.map(item => item.product_id === productId ? {
+        ...item,
+        amount: amount,
+        price: newPrice
+      } : item))
       setUpdateCart(!updateCart)
     }).catch(err => console.log(err))
   }
-
-  const removeItem = (cartId) => {
-    axios.delete(`${import.meta.env.VITE_APP_API_URL}/user-carts/${cartId}`, {
-      headers: { Authorization: `Bearer ${jwt}` }
-    }).then(() => {
-      setCart(cart.filter(item => item.cart_id !== cartId))
-      setUpdateCart(!updateCart)
-    }).catch(err => console.log(err))
+  
+  const removeItem = (cartId, productId) => {
+    const updatedCart = cart.filter(item => item.product_id !== productId)
+  
+    if(updatedCart.length === 0){
+      axios.delete(`${import.meta.env.VITE_APP_API_URL}/user-carts/${cartId}`, {
+        headers: { Authorization: `Bearer ${jwt}` }
+      }).then(() => {
+        setCart([])
+        setUpdateCart(!updateCart)
+      }).catch(err => console.log(err))
+    }else{
+      axios.put(`${import.meta.env.VITE_APP_API_URL}/user-carts/${cartId}`, {
+        data: {
+          cartProductList: updatedCart.map(item => ({
+            amount: item.amount,
+            price: item.price,
+            product: item.product_id
+          }))
+        }
+      }, {
+        headers: { Authorization: `Bearer ${jwt}` }
+      }).then(() => {
+        setCart(updatedCart)
+        setUpdateCart(!updateCart)
+      }).catch(err => console.log(err))
+    }
   }
-
+  
   if(loading) return <Loading></Loading>
 
   return(

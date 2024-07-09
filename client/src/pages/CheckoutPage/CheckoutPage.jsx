@@ -21,22 +21,24 @@ const CheckoutPage = () => {
         return
       }
 
-      await axios.get(`${import.meta.env.VITE_APP_API_URL}/user-carts?[populate][products][populate][product_img1][populate][0]=url&filters[userId][$eq]=${user.id}`, {
+      await axios.get(`${import.meta.env.VITE_APP_API_URL}/user-carts?populate[0]=cartProductList&populate[1]=cartProductList.product&populate[2]=cartProductList.product.product_img1&filters[userId][$eq]=${user.id}`, {
         headers: {
           Authorization: `Bearer ${jwt}`
         }
       }).then(response => {
         const data = response.data?.data
-        const cartItemsList = data.map((item, index) => ({
-          product_name: item.attributes.products?.data[0].attributes.product_name,
-          amount: item.attributes.amount,
-          price: item.attributes.price,
-          image: item.attributes.products?.data[0].attributes.product_img1.data.attributes.url,
-          imageAlt: item.attributes.products?.data[0].attributes.product_img1.data.attributes.alternativeText,
+        const cartItemsList = data[0].attributes.cartProductList.map((item, index) => ({
+          product_name: item.product.data.attributes.product_name,
+          amount: item.amount,
+          price: item.price,
+          actualPrice: item.product.data.attributes.product_price,
+          image: item.product.data.attributes.product_img1.data.attributes.url,
+          imageAlt: item.product.data.attributes.product_img1.data.attributes.alternativeText,
+          product_id: item.product.data.id,
+          cart_id: data[0].id
         }))
         setCart(cartItemsList)
         setLoading(false)
-        console.log(cartItemsList)
       }).catch(err => {
         console.log(err)
         setLoading(false)

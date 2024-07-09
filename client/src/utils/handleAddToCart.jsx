@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const handleAddToCart = async ({productId, productAmount, productPrice, updateCart, setUpdateCart, navigate, showToast}) => {
+const handleAddToCart = async ({ productId, productAmount, productPrice, updateCart, setUpdateCart, navigate, showToast }) => {
   const jwt = sessionStorage.getItem("jwt")
   const user = JSON.parse(sessionStorage.getItem("user"))
 
@@ -10,44 +10,73 @@ const handleAddToCart = async ({productId, productAmount, productPrice, updateCa
   }
 
   try{
-    const cartResponse = await axios.get(`${import.meta.env.VITE_APP_API_URL}/user-carts?filters[userId][$eq]=${user.id}&populate=products`, {
-      headers: {Authorization: `bearer ${jwt}`}
+    const cartResponse = await axios.get(`${import.meta.env.VITE_APP_API_URL}/user-carts?filters[userId][$eq]=${user.id}&populate=cartProductList.product`, {
+      headers: { Authorization: `bearer ${jwt}` }
     })
 
-    let cart = cartResponse.data.data
+    let cart = cartResponse.data.data[0]
 
-    const existingCartItem = cart.find(userCart => 
-      userCart.attributes.products.data.some(product => product.id === productId)
-    )
+    let cartId
+    let cartProductList = []
 
-    if(existingCartItem){
-      const productInCart = existingCartItem.attributes.products.data.find(product => product.id === productId)
-      const updatedAmount = existingCartItem.attributes.amount + productAmount
-      const updatedPrice = (updatedAmount * productInCart.attributes.product_price).toFixed(2)
-
-      const updatedData = {
+    if(cart){
+      cartId = cart.id
+      cartProductList = cart.attributes.cartProductList
+    }else{
+      const newCartData = {
         data: {
-          amount: updatedAmount,
-          price: updatedPrice,
+          userId: user.id,
+          users_permissions_user: user.id,
+          cartProductList: []
         }
       }
 
-      await axios.put(`${import.meta.env.VITE_APP_API_URL}/user-carts/${existingCartItem.id}`, updatedData, {
-        headers: {Authorization: `Bearer ${jwt}`}
+      const newCartResponse = await axios.post(`${import.meta.env.VITE_APP_API_URL}/user-carts`, newCartData, {
+        headers: { Authorization: `Bearer ${jwt}` }
       })
-    }else{
-      const newData = {
-        data: {
-          amount: productAmount,
-          price: (productAmount * productPrice).toFixed(2),
-          products: [{ id: productId }],
-          users_permissions_user: user.id,
-          userId: user.id,
-        },
+
+      cartId = newCartResponse.data.data.id
+    }
+    
+    const existingProductIndex = cartProductList.findIndex(cartProduct => cartProduct.product.data.id === productId)
+
+    if(existingProductIndex !== -1){
+      const existingProduct = cartProductList[existingProductIndex]
+      const updatedAmount = existingProduct.amount + productAmount
+      const updatedPrice = (updatedAmount * productPrice).toFixed(2)
+
+      cartProductList[existingProductIndex] = {
+        ...existingProduct,
+        amount: updatedAmount,
+        price: updatedPrice
       }
 
-      await axios.post(`${import.meta.env.VITE_APP_API_URL}/user-carts`, newData, {
-        headers: {Authorization: `Bearer ${jwt}`}
+      const updatedData = {
+        data: {
+          cartProductList: cartProductList
+        }
+      }
+
+      await axios.put(`${import.meta.env.VITE_APP_API_URL}/user-carts/${cartId}`, updatedData, {
+        headers: { Authorization: `Bearer ${jwt}` }
+      })
+    }else{
+      const newCartProduct = {
+        amount: productAmount,
+        price: (productAmount * productPrice).toFixed(2),
+        product: { id: productId }
+      }
+
+      cartProductList.push(newCartProduct)
+
+      const updatedData = {
+        data: {
+          cartProductList: cartProductList
+        }
+      }
+      
+      await axios.put(`${import.meta.env.VITE_APP_API_URL}/user-carts/${cartId}`, updatedData, {
+        headers: { Authorization: `Bearer ${jwt}` }
       })
     }
 
