@@ -78,6 +78,7 @@ const CheckoutPage = () => {
           {
             data: {
               username: userName,
+              userLastName: userLastName,
               email: userEmail,
               phone: userPhoneNumber,
               zip: userZipCode,
