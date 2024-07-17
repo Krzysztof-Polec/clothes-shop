@@ -71,32 +71,27 @@ const CheckoutPage = () => {
       userZipCode.length > 0 &&
       userAddress.length > 0
     ){
-      try {
+      try{
         setLoading(true)
-        const orderResponse = await axios.post(
-          `${import.meta.env.VITE_APP_API_URL}/orders`,
-          {
-            data: {
-              username: userName,
-              userLastName: userLastName,
-              email: userEmail,
-              phone: userPhoneNumber,
-              zip: userZipCode,
-              address: userAddress,
-              totalOrderAmount: totalPrice,
-              userId: user.id,
-              orderItemList: cart.map((product) => ({
-                amount: product.amount,
-                price: product.price,
-                product: product.product_id,
-              })),
-              users_permissions_user: user.id,
-            },
+        const orderResponse = await axios.post(`${import.meta.env.VITE_APP_API_URL}/orders`,{
+          data: {
+            username: userName,
+            userLastName: userLastName,
+            email: userEmail,
+            phone: userPhoneNumber,
+            zip: userZipCode,
+            address: userAddress,
+            totalOrderAmount: totalPrice,
+            userId: user.id,
+            orderItemList: cart.map((product) => ({
+              amount: product.amount,
+              price: product.price,
+              product: product.product_id,
+            })),
+            users_permissions_user: user.id,
           },
-          {
-            headers: { Authorization: `Bearer ${jwt}` }
-          }
-        )
+        },
+        {headers: { Authorization: `Bearer ${jwt}` }})
   
         if(orderResponse.status === 200){
           const cartId = cart.length > 0 ? cart[0].cart_id : null

@@ -1,0 +1,26 @@
+.accountPageHeader{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  div{
+    display: flex;
+
+    a,p{
+      text-decoration: none;
+      color: #909097;
+      transition: 0.3s;
+      cursor: pointer;
+
+      &:hover{
+        color: #23232c;
+      }
+    }
+  }
+}
+
+@media(min-width: 605px){
+  .accountPageHeader{
+    flex-direction: row;
+  }
+}

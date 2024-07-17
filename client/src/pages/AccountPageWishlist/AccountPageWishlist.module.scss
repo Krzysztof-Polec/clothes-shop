@@ -1,0 +1,14 @@
+.accountPageWishlist{
+  padding-top: 50px;
+
+  &>p{
+    font-weight: 500;
+    margin-bottom: 15px;
+  }
+
+  &>div{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+}
