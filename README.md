@@ -15,7 +15,9 @@ Clone the repository and add the .env file with the appropriate data in the clie
 ### .env variables
 
 `VITE_APP_API_TOKEN = "your strapi key"`
+
 `VITE_APP_API_URL = "your host/api"`
+
 `VITE_APP_UPLOAD_URL = "your host"`
 
 ### start comands
